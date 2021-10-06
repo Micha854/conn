@@ -20,7 +20,10 @@ timestamp = 0
 
 while True:
     now = datetime.datetime.now().strftime("%y-%m-%d %H:%M:%S")
-    r = requests.get(madmin + '/settings/devices', auth=(auth_user, auth_pass), timeout=5)
+    try:
+        r = requests.get(madmin + '/settings/devices', auth=(auth_user, auth_pass), timeout=5)
+    except:
+        r.status_code = None
 
     ### offline
     if not r.status_code == 200 and not offline:
@@ -31,7 +34,7 @@ while True:
     ### online
     if r.status_code == 200 and offline == 1:
         print(now + ' Internet connection back, restart devices!')
-        exit_code = subprocess.check_output('./power.sh', shell=True)
+        exit_code = subprocess.check_output(os.path.join(path,'./power.sh'), shell=True)
         if discord_webhook:
             try:
                 data = {
