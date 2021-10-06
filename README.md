@@ -1,7 +1,11 @@
 # reboot all devices if connection lost
 
-## config main.py script
-for config use the top part (config section) on the main.py file!
+## install
+```
+git clone https://github.com/Micha854/conn
+
+cp config_example.ini config.ini
+```
 
 ## setup power.sh
 put your reboot commands into the power.sh script
