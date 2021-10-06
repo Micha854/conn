@@ -2,10 +2,12 @@ import requests
 import subprocess
 import datetime
 import time
+import os
 import configparser
 
+path = '/'.join((os.path.abspath(__file__).replace('\\', '/')).split('/')[:-1])
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read(os.path.join(path, 'config.ini'))
 
 madmin = config['main']['madmin']
 auth_user = config['main']['auth_user']
@@ -61,7 +63,7 @@ while True:
                 send = requests.post(discord_webhook, json=data)
             except:
                 print(now + ' could not send webhook!')
-        
+
         offline = 0
         timestamp = 0
         #print(exit_code)
