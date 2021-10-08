@@ -18,15 +18,19 @@ discord_webhook = config['main']['discord_webhook']
 offline = 0
 timestamp = 0
 
+class error:
+    pass
+
 while True:
     now = datetime.datetime.now().strftime("%y-%m-%d %H:%M:%S")
     try:
         r = requests.get(madmin + '/settings/devices', auth=(auth_user, auth_pass), timeout=5)
     except:
+        r = error()
         r.status_code = None
 
     ### offline
-    if not r.status_code == 200 and not offline:
+    if not r.status_code and not offline:
         offline = 1
         timestamp = now
         print(now + ' Disconnection detected...')
